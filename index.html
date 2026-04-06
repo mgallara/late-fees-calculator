@@ -1,62 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --dg: #1a4d2e;
-    --dg-light: #2d6e45;
-    --dg-dark: #0f2d1a;
-    --dg-bg: #f0f7f2;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: sans-serif; }
-  .app { max-width: 780px; margin: 0 auto; padding: 0 0 2rem; }
-  .header { background: var(--dg); color: #fff; padding: 1.2rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 12px; }
-  .header h1 { font-size: 18px; font-weight: 500; color: #fff; }
-  .header p { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 2px; }
-  .form-body { background: #fff; border: 0.5px solid #ddd; border-top: none; border-radius: 0 0 12px 12px; padding: 1.5rem; }
-  .section-label { font-size: 11px; font-weight: 500; color: var(--dg); text-transform: uppercase; letter-spacing: 0.08em; margin: 1.2rem 0 0.6rem; border-bottom: 1.5px solid var(--dg-bg); padding-bottom: 4px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .field { display: flex; flex-direction: column; gap: 4px; }
-  .field label { font-size: 12px; color: #666; }
-  .field input, .field select { height: 36px; border: 0.5px solid #bbb; border-radius: 8px; padding: 0 10px; font-size: 14px; background: #fff; color: #111; width: 100%; }
-  .field input:focus, .field select:focus { outline: none; border-color: var(--dg); box-shadow: 0 0 0 2px rgba(26,77,46,0.15); }
-  .btn-calc { width: 100%; margin-top: 1.5rem; padding: 11px; background: var(--dg); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; }
-  .btn-calc:hover { background: var(--dg-light); }
-  .btn-calc:active { background: var(--dg-dark); transform: scale(0.99); }
-  .btn-reset { width: 100%; margin-top: 8px; padding: 9px; background: transparent; color: var(--dg); border: 0.5px solid var(--dg); border-radius: 8px; font-size: 14px; cursor: pointer; }
-  .btn-reset:hover { background: var(--dg-bg); }
-  .results { margin-top: 1.5rem; border-radius: 12px; border: 0.5px solid #ddd; overflow: hidden; display: none; }
-  .results.show { display: block; }
-  .results-header { background: var(--dg-bg); border-bottom: 0.5px solid #ddd; padding: 1rem 1.25rem; }
-  .results-header h2 { font-size: 15px; font-weight: 500; color: var(--dg); }
-  .deal-meta { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 6px; }
-  .deal-meta span { font-size: 13px; color: #666; }
-  .deal-meta strong { color: #111; font-weight: 500; }
-  .results-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 10px; }
-  .interest-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
-  .interest-row .lbl { font-size: 14px; color: #666; }
-  .interest-row .val { font-size: 16px; font-weight: 500; color: #111; }
-  .interest-total { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: var(--dg); border-radius: 8px; }
-  .interest-total .lbl { font-size: 14px; color: rgba(255,255,255,0.8); }
-  .interest-total .val { font-size: 20px; font-weight: 500; color: #fff; }
+:root{--dg:#0a6644;--dgl:#138056;--dgd:#074d32;--dgb:#edf5f0;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Nunito',sans-serif;}
+.app{max-width:780px;margin:0 auto;padding:0 0 2rem;}
+.header{background:var(--dg);padding:1.2rem 1.5rem;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:center;}
+.header h1{font-size:18px;font-weight:500;color:#fff;}
+.header p{font-size:13px;color:rgba(255,255,255,0.7);margin-top:2px;}
+.header-brand{font-size:26px;font-weight:700;color:#fff;letter-spacing:1px;}
+.form-body{background:#fff;border:0.5px solid #ddd;border-top:none;border-radius:0 0 12px 12px;padding:1.5rem;}
+.section-label{font-size:11px;font-weight:700;color:var(--dg);text-transform:uppercase;letter-spacing:0.08em;margin:1.2rem 0 0.6rem;border-bottom:1.5px solid var(--dgb);padding-bottom:4px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.field{display:flex;flex-direction:column;gap:4px;}
+.field label{font-size:12px;color:#666;}
+.field input,.field select{height:36px;border:0.5px solid #bbb;border-radius:8px;padding:0 10px;font-size:14px;background:#fff;color:#111;width:100%;font-family:'Nunito',sans-serif;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--dg);box-shadow:0 0 0 2px rgba(10,102,68,0.15);}
+.btn-calc{width:100%;margin-top:1.5rem;padding:11px;background:var(--dg);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Nunito',sans-serif;}
+.btn-calc:hover{background:var(--dgl);}
+.btn-reset{width:100%;margin-top:8px;padding:9px;background:transparent;color:var(--dg);border:0.5px solid var(--dg);border-radius:8px;font-size:14px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.btn-reset:hover{background:var(--dgb);}
+.btn-pdf{width:100%;margin-top:8px;padding:9px;background:transparent;color:#666;border:0.5px solid #bbb;border-radius:8px;font-size:14px;cursor:pointer;display:none;font-family:'Nunito',sans-serif;}
+.btn-pdf.show{display:block;}
+.btn-pdf:hover{background:#f5f5f5;}
+.results{margin-top:1.5rem;border-radius:12px;border:0.5px solid #ddd;overflow:hidden;display:none;}
+.results.show{display:block;}
+.results-header{background:var(--dgb);border-bottom:0.5px solid #ddd;padding:1rem 1.25rem;}
+.results-header h2{font-size:15px;font-weight:500;color:var(--dg);}
+.deal-meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:6px;}
+.deal-meta span{font-size:13px;color:#666;}
+.deal-meta strong{color:#111;font-weight:500;}
+.results-body{padding:1.25rem;display:flex;flex-direction:column;gap:10px;}
+.interest-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f5f5f5;border-radius:8px;}
+.interest-row .lbl{font-size:14px;color:#666;}
+.interest-row .val{font-size:16px;font-weight:500;color:#111;}
+.interest-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--dg);border-radius:8px;}
+.interest-total .lbl{font-size:14px;color:rgba(255,255,255,0.8);}
+.interest-total .val{font-size:20px;font-weight:500;color:#fff;}
 </style>
+</head>
+<body>
 <div class="app">
   <div class="header">
     <div>
       <h1>Late fees interest calculator</h1>
       <p>Simple interest on a 360-day basis</p>
     </div>
+    <div class="header-brand">Kolmar</div>
   </div>
   <div class="form-body">
     <div class="section-label">Deal details</div>
     <div class="grid-3">
-      <div class="field"><label>Deal number</label><input id="deal" placeholder="e.g. DL-2024-001" /></div>
-      <div class="field"><label>Counterparty</label><input id="counterparty" placeholder="Company name" /></div>
-      <div class="field"><label>Product</label><input id="product" placeholder="e.g. Wheat, Iron ore" /></div>
+      <div class="field"><label>Deal number</label><input id="deal" placeholder="e.g. DL-2024-001"></div>
+      <div class="field"><label>Counterparty</label><input id="counterparty" placeholder="Company name"></div>
+      <div class="field"><label>Product</label><input id="product" placeholder="e.g. Wheat, Iron ore"></div>
     </div>
     <div style="margin-top:12px">
-      <div class="field"><label>Vessel name</label><input id="vessel" placeholder="e.g. MV Atlantic Star" /></div>
+      <div class="field"><label>Vessel name</label><input id="vessel" placeholder="e.g. MV Atlantic Star"></div>
     </div>
-
     <div class="section-label">Payment details</div>
     <div class="grid-3">
       <div class="field"><label>Currency</label>
@@ -65,90 +69,165 @@
           <option>JPY</option><option>CNY</option><option>SGD</option><option>AED</option>
         </select>
       </div>
-      <div class="field"><label>Amount</label><input id="amount" type="number" min="0" placeholder="0.00" /></div>
+      <div class="field"><label>Amount</label><input id="amount" type="text" placeholder="0.00" inputmode="decimal"></div>
       <div class="field" style="opacity:0"></div>
     </div>
     <div class="grid-2" style="margin-top:12px">
-      <div class="field"><label>Due date</label><input id="due" type="date" /></div>
-      <div class="field"><label>Payment received date</label><input id="received" type="date" /></div>
+      <div class="field"><label>Due date</label><input id="due" type="date"></div>
+      <div class="field"><label>Payment received date</label><input id="received" type="date"></div>
     </div>
-
     <div class="section-label">Interest rates</div>
     <div class="grid-2">
-      <div class="field"><label>Contract interest rate (%)</label><input id="contract-rate" type="number" min="0" step="0.01" placeholder="e.g. 5.00" /></div>
-      <div class="field"><label>Bank interest rate (%)</label><input id="bank-rate" type="number" min="0" step="0.01" placeholder="e.g. 2.50" /></div>
+      <div class="field"><label>Contract interest rate (%)</label><input id="crate" type="number" min="0" step="0.01" placeholder="e.g. 5.00"></div>
+      <div class="field"><label>Bank interest rate (%)</label><input id="brate" type="number" min="0" step="0.01" placeholder="e.g. 2.50"></div>
     </div>
-
     <button class="btn-calc" onclick="calculate()">Calculate interest</button>
     <button class="btn-reset" onclick="resetForm()">Clear form</button>
+    <button class="btn-pdf" id="btnpdf" onclick="downloadPDF()">Download as PDF</button>
   </div>
-
   <div class="results" id="results">
     <div class="results-header">
-      <h2 id="r-counterparty">—</h2>
+      <h2 id="rcp">—</h2>
       <div class="deal-meta">
-        <span><strong id="r-deal">—</strong> Deal</span>
-        <span>Vessel: <strong id="r-vessel">—</strong></span>
-        <span>Product: <strong id="r-product">—</strong></span>
-        <span>Days overdue: <strong id="r-days">—</strong></span>
+        <span>Deal number: <strong id="rdeal">—</strong></span>
+        <span>Vessel: <strong id="rvessel">—</strong></span>
+        <span>Product: <strong id="rproduct">—</strong></span>
+        <span>Days overdue: <strong id="rdays">—</strong></span>
       </div>
     </div>
     <div class="results-body">
-      <div class="interest-row">
-        <span class="lbl">Contract interest</span>
-        <span class="val" id="r-contract">—</span>
-      </div>
-      <div class="interest-row">
-        <span class="lbl">Bank interest</span>
-        <span class="val" id="r-bank">—</span>
-      </div>
-      <div class="interest-total">
-        <span class="lbl">Total interest owed</span>
-        <span class="val" id="r-total">—</span>
-      </div>
+      <div class="interest-row"><span class="lbl">Contract interest</span><span class="val" id="rci">—</span></div>
+      <div class="interest-row"><span class="lbl">Bank interest</span><span class="val" id="rbi">—</span></div>
+      <div class="interest-total"><span class="lbl">Total interest owed</span><span class="val" id="rtot">—</span></div>
     </div>
   </div>
 </div>
-
 <script>
-function calculate() {
-  const get = id => document.getElementById(id).value.trim();
-  const due = new Date(get('due'));
-  const received = new Date(get('received'));
-  const amount = parseFloat(get('amount'));
-  const cRate = parseFloat(get('contract-rate'));
-  const bRate = parseFloat(get('bank-rate'));
-  const currency = get('currency');
+document.getElementById('amount').addEventListener('input',function(){
+  var raw=this.value.replace(/[^0-9.]/g,'');
+  var p=raw.split('.');
+  p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,"'");
+  this.value=p.length>1?p[0]+'.'+p[1]:p[0];
+});
 
-  if (!get('deal') || !get('counterparty') || !get('amount') || !get('due') || !get('received') || isNaN(cRate) || isNaN(bRate)) {
-    alert('Please fill in all required fields.'); return;
-  }
-  if (received <= due) { alert('Received date must be after due date.'); return; }
+function getAmt(){return parseFloat(document.getElementById('amount').value.replace(/'/g,''));}
 
-  const days = Math.round((received - due) / (1000 * 60 * 60 * 24));
-  const fmt = n => currency + ' ' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-  const contractInt = amount * (cRate / 100) * (days / 360);
-  const bankInt = amount * (bRate / 100) * (days / 360);
-  const total = contractInt + bankInt;
-
-  document.getElementById('r-counterparty').textContent = get('counterparty');
-  document.getElementById('r-deal').textContent = get('deal');
-  document.getElementById('r-vessel').textContent = get('vessel') || '—';
-  document.getElementById('r-product').textContent = get('product') || '—';
-  document.getElementById('r-days').textContent = days + ' days';
-  document.getElementById('r-contract').textContent = fmt(contractInt);
-  document.getElementById('r-bank').textContent = fmt(bankInt);
-  document.getElementById('r-total').textContent = fmt(total);
-
-  const res = document.getElementById('results');
-  res.classList.add('show');
-  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function fmt(n,cur){
+  var p=n.toFixed(2).split('.');
+  p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,"'");
+  return cur+' '+p[0]+'.'+p[1];
 }
 
-function resetForm() {
-  ['deal','counterparty','product','vessel','amount','due','received','contract-rate','bank-rate'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('currency').value = 'USD';
+function g(id){return document.getElementById(id).value.trim();}
+
+function calculate(){
+  var due=new Date(g('due')),rec=new Date(g('received'));
+  var amt=getAmt(),cr=parseFloat(g('crate')),br=parseFloat(g('brate')),cur=g('currency');
+  if(!g('deal')||!g('counterparty')||!g('amount')||!g('due')||!g('received')||isNaN(cr)||isNaN(br)){alert('Please fill in all required fields.');return;}
+  if(rec<=due){alert('Received date must be after due date.');return;}
+  var days=Math.round((rec-due)/86400000);
+  var ci=amt*(cr/100)*(days/360),bi=amt*(br/100)*(days/360),tot=ci+bi;
+  document.getElementById('rcp').textContent=g('counterparty');
+  document.getElementById('rdeal').textContent=g('deal');
+  document.getElementById('rvessel').textContent=g('vessel')||'—';
+  document.getElementById('rproduct').textContent=g('product')||'—';
+  document.getElementById('rdays').textContent=days+' days';
+  document.getElementById('rci').textContent=fmt(ci,cur);
+  document.getElementById('rbi').textContent=fmt(bi,cur);
+  document.getElementById('rtot').textContent=fmt(tot,cur);
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.getElementById('btnpdf').classList.add('show');
+}
+
+function resetForm(){
+  ['deal','counterparty','product','vessel','amount','due','received','crate','brate'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('currency').value='USD';
   document.getElementById('results').classList.remove('show');
+  document.getElementById('btnpdf').classList.remove('show');
+}
+
+function downloadPDF(){
+  var ci=document.getElementById('rci').textContent;
+  var bi=document.getElementById('rbi').textContent;
+  var tot=document.getElementById('rtot').textContent;
+  var cp=document.getElementById('rcp').textContent;
+  var deal=document.getElementById('rdeal').textContent;
+  var vessel=document.getElementById('rvessel').textContent;
+  var product=document.getElementById('rproduct').textContent;
+  var days=document.getElementById('rdays').textContent;
+  var cur=g('currency');
+  var amount=document.getElementById('amount').value;
+  var due=g('due');
+  var received=g('received');
+  var cr=g('crate');
+  var br=g('brate');
+  var date=new Date().toLocaleDateString('en-CH');
+  var parts=[];
+  parts.push('<!DOCTYPE html><html><head><meta charset="utf-8">');
+  parts.push('<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700&display=swap" rel="stylesheet">');
+  parts.push('<style>body{font-family:Nunito,sans-serif;padding:40px;color:#111;max-width:800px;margin:0 auto}');
+  parts.push('h1{font-size:22px;color:#0a6644;margin-bottom:4px}.sub{font-size:12px;color:#666;margin-bottom:24px}');
+  parts.push('.brand{font-size:24px;font-weight:700;color:#0a6644}');
+  parts.push('.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}');
+  parts.push('.section-label{font-size:11px;font-weight:700;color:#0a6644;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1.5px solid #edf5f0;padding-bottom:4px;margin:20px 0 12px}');
+  parts.push('.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}');
+  parts.push('.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}');
+  parts.push('.field{display:flex;flex-direction:column;gap:4px}');
+  parts.push('.field label{font-size:11px;color:#888}.field span{font-size:14px;font-weight:500;color:#111;border-bottom:0.5px solid #ddd;padding-bottom:4px}');
+  parts.push('.meta{display:flex;flex-wrap:wrap;gap:6px 24px;margin:24px 0 16px;padding:12px 16px;background:#edf5f0;border-radius:8px}');
+  parts.push('.meta span{font-size:13px;color:#444}.meta strong{color:#0a6644}');
+  parts.push('table{width:100%;border-collapse:collapse}tr{border-bottom:0.5px solid #ddd}');
+  parts.push('td{padding:14px 16px;font-size:15px}td.r{text-align:right;font-weight:500}');
+  parts.push('.tot td{background:#0a6644;color:#fff;font-size:17px;border:none}');
+  parts.push('.footer{margin-top:32px;font-size:11px;color:#aaa;text-align:center}</style></head><body>');
+  parts.push('<div class="top"><div><h1>Late fees interest calculator</h1><p class="sub">Simple interest on a 360-day basis</p></div><div class="brand">Kolmar</div></div>');
+  parts.push('<div class="section-label">Deal details</div>');
+  parts.push('<div class="grid-3">');
+  parts.push('<div class="field"><label>Deal number</label><span>'+deal+'</span></div>');
+  parts.push('<div class="field"><label>Counterparty</label><span>'+cp+'</span></div>');
+  parts.push('<div class="field"><label>Product</label><span>'+product+'</span></div>');
+  parts.push('</div>');
+  parts.push('<div class="field" style="margin-bottom:12px"><label>Vessel name</label><span>'+vessel+'</span></div>');
+  parts.push('<div class="section-label">Payment details</div>');
+  parts.push('<div class="grid-3">');
+  parts.push('<div class="field"><label>Currency</label><span>'+cur+'</span></div>');
+  parts.push('<div class="field"><label>Amount</label><span>'+cur+' '+amount+'</span></div>');
+  parts.push('<div class="field"></div>');
+  parts.push('</div>');
+  parts.push('<div class="grid-2">');
+  parts.push('<div class="field"><label>Due date</label><span>'+due+'</span></div>');
+  parts.push('<div class="field"><label>Payment received date</label><span>'+received+'</span></div>');
+  parts.push('</div>');
+  parts.push('<div class="section-label">Interest rates</div>');
+  parts.push('<div class="grid-2">');
+  parts.push('<div class="field"><label>Contract interest rate (%)</label><span>'+cr+'%</span></div>');
+  parts.push('<div class="field"><label>Bank interest rate (%)</label><span>'+br+'%</span></div>');
+  parts.push('</div>');
+  parts.push('<div class="section-label">Results</div>');
+  parts.push('<div class="meta">');
+  parts.push('<span><strong>'+cp+'</strong></span>');
+  parts.push('<span>Deal number: <strong>'+deal+'</strong></span>');
+  parts.push('<span>Vessel: <strong>'+vessel+'</strong></span>');
+  parts.push('<span>Product: <strong>'+product+'</strong></span>');
+  parts.push('<span>Days overdue: <strong>'+days+'</strong></span>');
+  parts.push('</div><table>');
+  parts.push('<tr><td style="color:#666">Contract interest</td><td class="r">'+ci+'</td></tr>');
+  parts.push('<tr><td style="color:#666">Bank interest</td><td class="r">'+bi+'</td></tr>');
+  parts.push('<tr class="tot"><td>Total interest owed</td><td class="r">'+tot+'</td></tr>');
+  parts.push('</table>');
+  parts.push('<p class="footer">Generated on '+date+' &mdash; Late Fees Interest Calculator</p>');
+  parts.push('</body></html>');
+  var blob=new Blob([parts.join('')],{type:'text/html'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='late-fees-'+deal+'.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 </script>
+</body>
+</html>
