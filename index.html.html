@@ -1,0 +1,154 @@
+<style>
+  :root {
+    --dg: #1a4d2e;
+    --dg-light: #2d6e45;
+    --dg-dark: #0f2d1a;
+    --dg-bg: #f0f7f2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: sans-serif; }
+  .app { max-width: 780px; margin: 0 auto; padding: 0 0 2rem; }
+  .header { background: var(--dg); color: #fff; padding: 1.2rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 12px; }
+  .header h1 { font-size: 18px; font-weight: 500; color: #fff; }
+  .header p { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+  .form-body { background: #fff; border: 0.5px solid #ddd; border-top: none; border-radius: 0 0 12px 12px; padding: 1.5rem; }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--dg); text-transform: uppercase; letter-spacing: 0.08em; margin: 1.2rem 0 0.6rem; border-bottom: 1.5px solid var(--dg-bg); padding-bottom: 4px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 12px; color: #666; }
+  .field input, .field select { height: 36px; border: 0.5px solid #bbb; border-radius: 8px; padding: 0 10px; font-size: 14px; background: #fff; color: #111; width: 100%; }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--dg); box-shadow: 0 0 0 2px rgba(26,77,46,0.15); }
+  .btn-calc { width: 100%; margin-top: 1.5rem; padding: 11px; background: var(--dg); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; }
+  .btn-calc:hover { background: var(--dg-light); }
+  .btn-calc:active { background: var(--dg-dark); transform: scale(0.99); }
+  .btn-reset { width: 100%; margin-top: 8px; padding: 9px; background: transparent; color: var(--dg); border: 0.5px solid var(--dg); border-radius: 8px; font-size: 14px; cursor: pointer; }
+  .btn-reset:hover { background: var(--dg-bg); }
+  .results { margin-top: 1.5rem; border-radius: 12px; border: 0.5px solid #ddd; overflow: hidden; display: none; }
+  .results.show { display: block; }
+  .results-header { background: var(--dg-bg); border-bottom: 0.5px solid #ddd; padding: 1rem 1.25rem; }
+  .results-header h2 { font-size: 15px; font-weight: 500; color: var(--dg); }
+  .deal-meta { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 6px; }
+  .deal-meta span { font-size: 13px; color: #666; }
+  .deal-meta strong { color: #111; font-weight: 500; }
+  .results-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 10px; }
+  .interest-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
+  .interest-row .lbl { font-size: 14px; color: #666; }
+  .interest-row .val { font-size: 16px; font-weight: 500; color: #111; }
+  .interest-total { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: var(--dg); border-radius: 8px; }
+  .interest-total .lbl { font-size: 14px; color: rgba(255,255,255,0.8); }
+  .interest-total .val { font-size: 20px; font-weight: 500; color: #fff; }
+</style>
+<div class="app">
+  <div class="header">
+    <div>
+      <h1>Late fees interest calculator</h1>
+      <p>Simple interest on a 360-day basis</p>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="section-label">Deal details</div>
+    <div class="grid-3">
+      <div class="field"><label>Deal number</label><input id="deal" placeholder="e.g. DL-2024-001" /></div>
+      <div class="field"><label>Counterparty</label><input id="counterparty" placeholder="Company name" /></div>
+      <div class="field"><label>Product</label><input id="product" placeholder="e.g. Wheat, Iron ore" /></div>
+    </div>
+    <div style="margin-top:12px">
+      <div class="field"><label>Vessel name</label><input id="vessel" placeholder="e.g. MV Atlantic Star" /></div>
+    </div>
+
+    <div class="section-label">Payment details</div>
+    <div class="grid-3">
+      <div class="field"><label>Currency</label>
+        <select id="currency">
+          <option>USD</option><option>EUR</option><option>GBP</option><option>CHF</option>
+          <option>JPY</option><option>CNY</option><option>SGD</option><option>AED</option>
+        </select>
+      </div>
+      <div class="field"><label>Amount</label><input id="amount" type="number" min="0" placeholder="0.00" /></div>
+      <div class="field" style="opacity:0"></div>
+    </div>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="field"><label>Due date</label><input id="due" type="date" /></div>
+      <div class="field"><label>Payment received date</label><input id="received" type="date" /></div>
+    </div>
+
+    <div class="section-label">Interest rates</div>
+    <div class="grid-2">
+      <div class="field"><label>Contract interest rate (%)</label><input id="contract-rate" type="number" min="0" step="0.01" placeholder="e.g. 5.00" /></div>
+      <div class="field"><label>Bank interest rate (%)</label><input id="bank-rate" type="number" min="0" step="0.01" placeholder="e.g. 2.50" /></div>
+    </div>
+
+    <button class="btn-calc" onclick="calculate()">Calculate interest</button>
+    <button class="btn-reset" onclick="resetForm()">Clear form</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="results-header">
+      <h2 id="r-counterparty">—</h2>
+      <div class="deal-meta">
+        <span><strong id="r-deal">—</strong> Deal</span>
+        <span>Vessel: <strong id="r-vessel">—</strong></span>
+        <span>Product: <strong id="r-product">—</strong></span>
+        <span>Days overdue: <strong id="r-days">—</strong></span>
+      </div>
+    </div>
+    <div class="results-body">
+      <div class="interest-row">
+        <span class="lbl">Contract interest</span>
+        <span class="val" id="r-contract">—</span>
+      </div>
+      <div class="interest-row">
+        <span class="lbl">Bank interest</span>
+        <span class="val" id="r-bank">—</span>
+      </div>
+      <div class="interest-total">
+        <span class="lbl">Total interest owed</span>
+        <span class="val" id="r-total">—</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculate() {
+  const get = id => document.getElementById(id).value.trim();
+  const due = new Date(get('due'));
+  const received = new Date(get('received'));
+  const amount = parseFloat(get('amount'));
+  const cRate = parseFloat(get('contract-rate'));
+  const bRate = parseFloat(get('bank-rate'));
+  const currency = get('currency');
+
+  if (!get('deal') || !get('counterparty') || !get('amount') || !get('due') || !get('received') || isNaN(cRate) || isNaN(bRate)) {
+    alert('Please fill in all required fields.'); return;
+  }
+  if (received <= due) { alert('Received date must be after due date.'); return; }
+
+  const days = Math.round((received - due) / (1000 * 60 * 60 * 24));
+  const fmt = n => currency + ' ' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+  const contractInt = amount * (cRate / 100) * (days / 360);
+  const bankInt = amount * (bRate / 100) * (days / 360);
+  const total = contractInt + bankInt;
+
+  document.getElementById('r-counterparty').textContent = get('counterparty');
+  document.getElementById('r-deal').textContent = get('deal');
+  document.getElementById('r-vessel').textContent = get('vessel') || '—';
+  document.getElementById('r-product').textContent = get('product') || '—';
+  document.getElementById('r-days').textContent = days + ' days';
+  document.getElementById('r-contract').textContent = fmt(contractInt);
+  document.getElementById('r-bank').textContent = fmt(bankInt);
+  document.getElementById('r-total').textContent = fmt(total);
+
+  const res = document.getElementById('results');
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetForm() {
+  ['deal','counterparty','product','vessel','amount','due','received','contract-rate','bank-rate'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('currency').value = 'USD';
+  document.getElementById('results').classList.remove('show');
+}
+</script>
